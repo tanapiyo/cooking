@@ -29,3 +29,73 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+class Diary(models.Model):
+    foodName = models.CharField(max_length=50)
+    userDiary = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name='userDiary',
+        on_delete=models.CASCADE
+    )
+    date = models.DateTimeField(auto_now_add=False)
+    userDiary = models.ForeignKey(
+        'Recipe', related_name='recipeDiary',
+        on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return self.foodName
+
+class Recipe(models.Model):
+    foodName = models.CharField(max_length=50)
+    vegetables  = models.ManyToManyField(Vegetable)
+    main = modelsmodels.ForeignKey(
+        'RecipeMain', related_name='recipeMain',
+        on_delete=models.CASCADE
+    )
+    recipeKind = modelsmodels.ForeignKey(
+        'RecipeKind', related_name='recipeKind',
+        on_delete=models.CASCADE
+    )
+    memo = models.CharField(max_length=500)
+    ajitsuke = models.CharField(max_length=50)
+    cookingTime = models.IntegerField
+    onomatopoeia = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.foodName
+
+class Vegetable(models.Model):
+    vegeName = models.CharField(max_length=50)
+    kind = modelsmodels.ForeignKey(
+        'VegetableKind', related_name='vegetableKind',
+        on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return self.foodName
+
+class VegetableKind(models.Model):
+    kindName = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.kindName
+    
+class RecipeKind(models.Model):
+    recipeName = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.recipeName
+
+class Season(models.Model):
+    seasonName = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.seasonName
+
+class MainDish(models.Model):
+    mainDishName = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.seasonName
+
+
