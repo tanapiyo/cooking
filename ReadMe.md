@@ -6,3 +6,8 @@
 
 - django-admin startproject api_cooking .
 - django-admin startapp api
+
+### migration
+
+- python manage.py makemigrations
+- python manage.py migrate
