@@ -31,16 +31,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 class Diary(models.Model):
-    foodName = models.CharField(max_length=50)
+    foodName = models.CharField(max_length=200)
     userDiary = models.ForeignKey(
         settings.AUTH_USER_MODEL, related_name='userDiary',
         on_delete=models.CASCADE
     )
     date = models.DateTimeField(auto_now_add=False)
-    userDiary = models.ForeignKey(
-        'Recipe', related_name='recipeDiary',
-        on_delete=models.CASCADE
-    )
+    memo = models.CharField(max_length=500)
 
     def __str__(self):
         return self.foodName
@@ -60,6 +57,10 @@ class Recipe(models.Model):
     ajitsuke = models.CharField(max_length=50)
     cookingTime = models.IntegerField
     onomatopoeia = models.CharField(max_length=20)
+    userRecipe = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name='userRecipe',
+        on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return self.foodName
