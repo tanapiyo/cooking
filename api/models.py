@@ -54,7 +54,7 @@ class Recipe(models.Model):
         on_delete=models.CASCADE
     )
     memo = models.CharField(max_length=500)
-    ajitsuke = models.CharField(max_length=50)
+    ajitsuke = models.CharField(max_length=200)
     cookingTime = models.IntegerField
     onomatopoeia = models.CharField(max_length=20)
     userRecipe = models.ForeignKey(
@@ -86,12 +86,6 @@ class RecipeKind(models.Model):
 
     def __str__(self):
         return self.recipeName
-
-class Season(models.Model):
-    seasonName = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.seasonName
 
 class MainDish(models.Model):
     mainDishName = models.CharField(max_length=50)
