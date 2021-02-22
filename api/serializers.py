@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from .models import Diary, Recipe, Vegetable
+from .models import Diary, Recipe, Vegetable, MainDish
 
 from rest_framework_serializer_extensions.serializers import SerializerExtensionsMixin
 
@@ -27,6 +27,11 @@ class VegetableSerializer(serializers.ModelSerializer):
         fields = ('vegeName', 'kind')
         extra_kwargs = {'kind': {'read_only': True}}
 
+class MainDishSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MainDish
+        fields = ('mainDishName',)#1つでも,ないとエラーになる
+
 class RecipeSerializer(SerializerExtensionsMixin, serializers.ModelSerializer):
     class Meta:
         model = Recipe
@@ -36,7 +41,8 @@ class RecipeSerializer(SerializerExtensionsMixin, serializers.ModelSerializer):
             vegetables=dict(
                 serializer=VegetableSerializer,
                 many=True
-            )
+            ),
+            main=MainDishSerializer,
         )
         extra_kwargs = {'userRecipe': {'read_only': True}}
 
